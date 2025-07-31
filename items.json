@@ -1,7 +1,7 @@
 [
-    {"name": "Golden AKM", "price": 156000},
-    {"name": "Silencer M4", "price": 98400},
-    {"name": "Armor Titan Vest", "price": 245000},
-    {"name": "Scoped Mosin", "price": 67200},
-    {"name": "Surgical Kit Pro", "price": 22800}
+    {"name": "Teapot", "price": 156000, "image": "https://static.wikia.nocookie.net/arena-breakout-infinite/images/8/81/Teapot.png/revision/latest?cb=20240503215526"},
+    {"name": "Gold Necklace", "price": 98400, "image": "https://static.wikia.nocookie.net/arena-breakout-infinite/images/1/1f/Gold_Necklace.png/revision/latest?cb=20240503215426"},
+    {"name": "Gold Lion", "price": 245000, "image": "https://static.wikia.nocookie.net/arena-breakout-infinite/images/f/f6/Gold_Lion.png/revision/latest?cb=20240503215426"},
+    {"name": "Secret Document", "price": 67200, "image": "https://static.wikia.nocookie.net/arena-breakout-infinite/images/5/5e/Document.png/revision/latest?cb=20240503215406"},
+    {"name": "Vase", "price": 22800, "image": "https://static.wikia.nocookie.net/arena-breakout-infinite/images/6/6e/Vase.png/revision/latest?cb=20240503215501"}
 ]
