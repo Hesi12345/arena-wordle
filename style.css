@@ -36,3 +36,10 @@ button {
 button:hover {
     background-color: #2980b9;
 }
+
+#item-image {
+    max-width: 100%;
+    display: none;
+    margin: 1rem auto;
+    display: block;
+}

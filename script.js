@@ -2,6 +2,15 @@ let currentItem = null;
 let attempts = 0;
 const maxAttempts = 3;
 
+const emojisWin = ['🎉', '🏆', '👏', '🔥', '✅'];
+const emojisTooHigh = ['📉', '⬇️', '🔻'];
+const emojisTooLow = ['📈', '⬆️', '🔺'];
+const emojisLose = ['❌', '💀', '😢', '😭'];
+
+function randomEmoji(list) {
+    return list[Math.floor(Math.random() * list.length)];
+}
+
 async function loadItem() {
     const res = await fetch('items.json');
     const items = await res.json();
@@ -31,15 +40,15 @@ function evaluateGuess() {
 
     let result = '';
     if (Math.abs(guess - price) <= margin) {
-        result = `🎉 Trafione! Cena: ${price}`;
+        result = `${randomEmoji(emojisWin)} Trafione! Cena: ${price}`;
         endGame();
     } else if (attempts >= maxAttempts) {
-        result = `❌ Przegrana! Prawidłowa cena: ${price}`;
+        result = `${randomEmoji(emojisLose)} Przegrana! Prawidłowa cena: ${price}`;
         endGame();
     } else if (guess > price + margin) {
-        result = '📉 Za dużo!';
+        result = `${randomEmoji(emojisTooHigh)} Za dużo!`;
     } else {
-        result = '📈 Za mało!';
+        result = `${randomEmoji(emojisTooLow)} Za mało!`;
     }
 
     document.getElementById('result').textContent = result;
