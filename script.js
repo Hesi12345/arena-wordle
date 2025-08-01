@@ -1,3 +1,4 @@
+
 let currentItem = null;
 let attempts = 0;
 let maxAttempts = 3;
@@ -76,10 +77,7 @@ function updateCountdown() {
     const s = String(diff % 60).padStart(2, '0');
     document.getElementById('countdown').textContent = `${t("nextIn")}: ${h}:${m}:${s}`;
 }
-setInterval(() => {
-    updateCountdown();
-    loadItem();
-}, 1000 * 60);
+setInterval(updateCountdown, 1000);
 
 async function loadItem() {
     const res = await fetch('./items.json');
@@ -106,22 +104,9 @@ function flashEffect(type) {
     setTimeout(() => container.classList.remove(className), 800);
 }
 
-function triggerConfetti() {
-    confetti({
-        particleCount: 150,
-        spread: 70,
-        origin: { y: 0.6 }
-    });
-}
-
-function playWinSound() {
-    const sound = document.getElementById("win-sound");
-    if (sound) sound.play();
-}
-
 function evaluateGuess() {
     const guess = parseFloat(document.getElementById('guess-input').value);
-    if (isNaN(guess) || guess < 1 || !currentItem || attempts >= maxAttempts) return;
+    if (isNaN(guess) || !currentItem || attempts >= maxAttempts) return;
 
     const price = currentItem.price;
     const margin = price * 0.05;
@@ -131,8 +116,6 @@ function evaluateGuess() {
     if (Math.abs(guess - price) <= margin) {
         result = `${randomEmoji(emojisWin)} ${t("win")} ${price}`;
         flashEffect('win');
-        playWinSound();
-        triggerConfetti();
         endGame();
     } else {
         flashEffect('lose');
@@ -172,22 +155,5 @@ document.getElementById('forbidden-button').addEventListener('click', () => {
     updateTexts();
 });
 
-window.onload = () => {
-    loadItem();
-    updateTexts();
-    document.getElementById('guess-button').addEventListener('click', evaluateGuess);
-    document.getElementById('reset-button').addEventListener('click', () => location.reload());
-    document.getElementById('lang-switch').addEventListener('click', () => {
-        lang = lang === 'pl' ? 'en' : 'pl';
-        updateTexts();
-    });
-    document.getElementById('forbidden-button').addEventListener('click', () => {
-        isForbidden = !isForbidden;
-        maxAttempts = isForbidden ? 1 : 3;
-        attempts = 0;
-        document.getElementById('guess-button').disabled = false;
-        document.getElementById('guess-input').disabled = false;
-        document.getElementById('result').textContent = '';
-        updateTexts();
-    });
-};
+loadItem();
+updateTexts();
