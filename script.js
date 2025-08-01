@@ -49,13 +49,7 @@ function updateTexts() {
     document.getElementById('item-name').textContent = `${t("item")}: ${currentItem?.name || ""}`;
     document.getElementById('attempts-label').textContent = `${t("attemptsLeft")} ${maxAttempts - attempts}`;
     updateLangSwitch();
-    
-    const forbiddenBtn = document.getElementById('forbidden-button');
-    forbiddenBtn.textContent = "Forbidden Mode";
-    forbiddenBtn.title = lang === 'pl'
-        ? "Tryb trudny: tylko jedna próba na trafienie poprawnej ceny"
-        : "Hard mode: one chance to guess the correct price";
-    
+    document.getElementById('forbidden-button').textContent = "Forbidden";
 }
 
 function updateLangSwitch() {
@@ -136,8 +130,7 @@ function evaluateGuess() {
 function endGame() {
     document.getElementById('guess-button').disabled = true;
     document.getElementById('guess-input').disabled = true;
-    document.getElementById('forbidden-button').disabled = true;
-}
+    }
 
 document.getElementById('guess-button').addEventListener('click', evaluateGuess);
 document.getElementById('reset-button').addEventListener('click', () => location.reload());
@@ -145,11 +138,20 @@ document.getElementById('lang-switch').addEventListener('click', () => {
     lang = lang === 'pl' ? 'en' : 'pl';
     updateTexts();
 });
+
 document.getElementById('forbidden-button').addEventListener('click', () => {
+    isForbidden = !isForbidden;
+    maxAttempts = isForbidden ? 1 : 3;
+    document.getElementById('attempts-label').textContent = `${t("attemptsLeft")} ${maxAttempts - attempts}`;
+    document.getElementById('forbidden-button').textContent = "Forbidden Mode";
+    document.getElementById('forbidden-button').title = lang === 'pl'
+        ? (isForbidden ? "Tryb trudny: tylko jedna próba na trafienie poprawnej ceny" : "Kliknij, aby aktywować tryb trudny")
+        : (isForbidden ? "Hard mode: one chance to guess the correct price" : "Click to enable hard mode");
+});
+
     isForbidden = true;
     maxAttempts = 1;
-    document.getElementById('forbidden-button').disabled = true;
-    document.getElementById('attempts-label').textContent = `${t("attemptsLeft")} ${maxAttempts}`;
+        document.getElementById('attempts-label').textContent = `${t("attemptsLeft")} ${maxAttempts}`;
 });
 
 loadItem();
