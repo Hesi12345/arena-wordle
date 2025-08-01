@@ -145,7 +145,18 @@ document.getElementById('lang-switch').addEventListener('click', () => {
     updateTexts();
 });
 
+
 document.getElementById('forbidden-button').addEventListener('click', () => {
+    isForbidden = !isForbidden;
+    maxAttempts = isForbidden ? 1 : 3;
+    attempts = 0;
+    document.getElementById('guess-button').disabled = false;
+    document.getElementById('guess-input').disabled = false;
+    document.getElementById('guess-input').value = '';
+    document.getElementById('result').textContent = '';
+    updateTexts();
+});
+
     isForbidden = !isForbidden;
     maxAttempts = isForbidden ? 1 : 3;
     attempts = 0;
