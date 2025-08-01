@@ -79,12 +79,9 @@ function updateCountdown() {
 }
 setInterval(updateCountdown, 1000);
 
-function loadItem() {
-    const items = [{
-        "name": "Golden AKM",
-        "price": 156000,
-        "image": "https://i.imgur.com/whc64Zm.png"
-    }];
+async function loadItem() {
+    const res = await fetch('./items.json');
+    const items = await res.json();
     const today = new Date();
     const start = new Date(today.getFullYear(), 0, 0);
     const diff = today - start + ((start.getTimezoneOffset() - today.getTimezoneOffset()) * 60 * 1000);
