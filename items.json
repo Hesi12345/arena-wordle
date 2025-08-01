@@ -1,27 +1,7 @@
 [
     {
-        "name": "Teapot",
-        "price": 1415250,
-        "image": "https://i.imgur.com/zGKviuK.png"
-    },
-    {
-        "name": "Gold Necklace",
-        "price": 1456900,
+        "name": "Debug Test Item",
+        "price": 12345,
         "image": "https://i.imgur.com/whc64Zm.png"
-    },
-    {
-        "name": "Gold Lion",
-        "price": 1540150,
-        "image": "https://i.imgur.com/M1yi9Je.png"
-    },
-    {
-        "name": "Secret Document",
-        "price": 30933504,
-        "image": "https://i.imgur.com/bvIx9I6.png"
-    },
-    {
-        "name": "Vase",
-        "price": 1373650,
-        "image": "https://i.imgur.com/6SFFcnq.png"
     }
 ]

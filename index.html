@@ -4,26 +4,23 @@
     <meta charset="UTF-8">
     <title>Arena Wordle</title>
     <link rel="stylesheet" href="style.css">
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
 </head>
 <body>
     <div class="container">
         <h1>Arena Wordle</h1>
-        <p id="item-name">Loading...</p>
+        <p id="item-name">Ładowanie...</p>
         <img id="item-image" src="" alt="obraz przedmiotu" />
         <input type="number" id="guess-input" placeholder="12345" />
         <button id="guess-button">Zgadnij</button>
         <p id="result"></p>
         <p>
             <span id="attempts-label"></span>
-            <button id="forbidden-button">Forbidden Mode</button>
-            <img id="info-icon" src="https://i.imgur.com/3jGO7gA.png" alt="info" title="tooltip" style="width:16px;height:16px;margin-left:6px;vertical-align:middle;cursor:help;" />
+            <button id="forbidden-button" title="Tryb trudny: tylko jedna próba na trafienie poprawnej ceny">Forbidden Mode</button>
         </p>
         <button id="reset-button">Zagraj ponownie</button>
     </div>
     <button id="lang-switch">PL/EN</button>
     <div id="countdown">00:00:00</div>
-    <audio id="win-sound" src="win.mp3" preload="auto"></audio>
     <script src="script.js"></script>
 </body>
 </html>

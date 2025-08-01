@@ -7,6 +7,7 @@ body {
     margin: 0;
     position: relative;
 }
+
 .container {
     max-width: 500px;
     margin: auto;
@@ -15,6 +16,7 @@ body {
     border-radius: 10px;
     box-shadow: 0 0 20px rgba(0,0,0,0.4);
 }
+
 input, button {
     padding: 0.7rem;
     margin: 0.5rem;
@@ -22,17 +24,21 @@ input, button {
     border-radius: 5px;
     border: none;
 }
+
 input {
     width: 60%;
 }
+
 button {
     background-color: #3498db;
     color: white;
     cursor: pointer;
 }
+
 button:hover {
     background-color: #2980b9;
 }
+
 #item-image {
     max-width: 300px;
     height: auto;
@@ -40,6 +46,7 @@ button:hover {
     margin: 1rem auto;
     display: block;
 }
+
 #lang-switch {
     position: fixed;
     bottom: 10px;
@@ -51,12 +58,15 @@ button:hover {
     border-radius: 5px;
     background: white;
 }
+
 #lang-switch.pl {
     color: red;
 }
+
 #lang-switch.en {
     color: black;
 }
+
 #countdown {
     position: fixed;
     bottom: 10px;
@@ -64,20 +74,37 @@ button:hover {
     font-size: 0.9rem;
     color: #ccc;
 }
+
+
 @keyframes flashWin {
     0% { background-color: #2ecc71; }
     100% { background-color: transparent; }
 }
+
 @keyframes flashLose {
     0% { background-color: #e74c3c; }
     100% { background-color: transparent; }
 }
+
 .flash-win {
     animation: flashWin 0.8s ease-out;
 }
+
 .flash-lose {
     animation: flashLose 0.8s ease-out;
 }
+
+#forbidden-button {
+    padding: 0.4rem 0.6rem;
+    margin-left: 1rem;
+    font-size: 0.8rem;
+    background-color: #8e44ad;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
 #forbidden-button {
     padding: 0.4rem 0.6rem;
     margin-left: 0.8rem;
@@ -87,7 +114,4 @@ button:hover {
     border: none;
     border-radius: 5px;
     cursor: pointer;
-}
-.input-error {
-    border: 2px solid red;
 }

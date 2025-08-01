@@ -1,3 +1,4 @@
+
 let currentItem = null;
 let attempts = 0;
 let maxAttempts = 3;
@@ -53,10 +54,6 @@ function updateTexts() {
     forbiddenBtn.title = lang === 'pl'
         ? (isForbidden ? "Tryb trudny: tylko jedna próba na trafienie poprawnej ceny" : "Kliknij, aby aktywować tryb trudny")
         : (isForbidden ? "Hard mode: one chance to guess the correct price" : "Click to enable hard mode");
-    const infoIcon = document.getElementById('info-icon');
-    if (infoIcon) {
-        infoIcon.title = forbiddenBtn.title;
-    }
 }
 
 function updateAttemptsLabel() {
@@ -80,10 +77,7 @@ function updateCountdown() {
     const s = String(diff % 60).padStart(2, '0');
     document.getElementById('countdown').textContent = `${t("nextIn")}: ${h}:${m}:${s}`;
 }
-setInterval(() => {
-    updateCountdown();
-    if (new Date().getSeconds() === 0) loadItem();
-}, 1000);
+setInterval(updateCountdown, 1000);
 
 async function loadItem() {
     const res = await fetch('./items.json');
@@ -110,30 +104,9 @@ function flashEffect(type) {
     setTimeout(() => container.classList.remove(className), 800);
 }
 
-function triggerConfetti() {
-    if (typeof confetti === 'function') {
-        confetti({
-            particleCount: 150,
-            spread: 70,
-            origin: { y: 0.6 }
-        });
-    }
-}
-
-function playWinSound() {
-    const sound = document.getElementById("win-sound");
-    if (sound) sound.play();
-}
-
 function evaluateGuess() {
-    const input = document.getElementById('guess-input');
-    const guess = parseFloat(input.value);
-    if (isNaN(guess) || guess <= 0 || !currentItem || attempts >= maxAttempts) {
-        input.classList.add('input-error');
-        return;
-    } else {
-        input.classList.remove('input-error');
-    }
+    const guess = parseFloat(document.getElementById('guess-input').value);
+    if (isNaN(guess) || !currentItem || attempts >= maxAttempts) return;
 
     const price = currentItem.price;
     const margin = price * 0.05;
@@ -143,8 +116,6 @@ function evaluateGuess() {
     if (Math.abs(guess - price) <= margin) {
         result = `${randomEmoji(emojisWin)} ${t("win")} ${price}`;
         flashEffect('win');
-        playWinSound();
-        triggerConfetti();
         endGame();
     } else {
         flashEffect('lose');
