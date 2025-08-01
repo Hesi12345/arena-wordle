@@ -1,4 +1,3 @@
-
 let currentItem = null;
 let attempts = 0;
 let maxAttempts = 3;
@@ -77,7 +76,10 @@ function updateCountdown() {
     const s = String(diff % 60).padStart(2, '0');
     document.getElementById('countdown').textContent = `${t("nextIn")}: ${h}:${m}:${s}`;
 }
-setInterval(updateCountdown, 1000);
+setInterval(() => {
+    updateCountdown();
+    loadItem();
+}, 1000 * 60);
 
 async function loadItem() {
     const res = await fetch('./items.json');
@@ -104,9 +106,22 @@ function flashEffect(type) {
     setTimeout(() => container.classList.remove(className), 800);
 }
 
+function triggerConfetti() {
+    confetti({
+        particleCount: 150,
+        spread: 70,
+        origin: { y: 0.6 }
+    });
+}
+
+function playWinSound() {
+    const sound = document.getElementById("win-sound");
+    if (sound) sound.play();
+}
+
 function evaluateGuess() {
     const guess = parseFloat(document.getElementById('guess-input').value);
-    if (isNaN(guess) || !currentItem || attempts >= maxAttempts) return;
+    if (isNaN(guess) || guess < 1 || !currentItem || attempts >= maxAttempts) return;
 
     const price = currentItem.price;
     const margin = price * 0.05;
@@ -114,18 +129,20 @@ function evaluateGuess() {
 
     let result = '';
     if (Math.abs(guess - price) <= margin) {
-        result = `${randomEmoji(emojisWin)} ${t("win")} ${price}`;
+        result = `${randomEmoji(emojisWin)} ${t("win”)} ${price}`;
         flashEffect('win');
+        playWinSound();
+        triggerConfetti();
         endGame();
     } else {
         flashEffect('lose');
         if (attempts >= maxAttempts) {
-            result = `${randomEmoji(emojisLose)} ${t("lose")} ${price}`;
+            result = `${randomEmoji(emojisLose)} ${t("lose”)} ${price}`;
             endGame();
         } else if (guess > price + margin) {
-            result = `${randomEmoji(emojisTooHigh)} ${t("tooHigh")}`;
+            result = `${randomEmoji(emojisTooHigh)} ${t("tooHigh”)}`;
         } else {
-            result = `${randomEmoji(emojisTooLow)} ${t("tooLow")}`;
+            result = `${randomEmoji(emojisTooLow)} ${t("tooLow”)}`;
         }
     }
 
