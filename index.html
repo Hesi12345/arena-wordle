@@ -15,27 +15,12 @@
         <p id="result"></p>
         <p>
             <span id="attempts-label"></span>
-            <button id="forbidden-button">Forbidden Mode</button><img src="https://i.imgur.com/3jGO7gA.png" alt="info" title="Tryb trudny: tylko jedna próba na trafienie poprawnej ceny" style="width:16px;height:16px;margin-left:6px;vertical-align:middle;cursor:help;">
+            <button id="forbidden-button" title="Tryb trudny: tylko jedna próba na trafienie poprawnej ceny">Forbidden Mode</button>
         </p>
         <button id="reset-button">Zagraj ponownie</button>
     </div>
     <button id="lang-switch">PL/EN</button>
     <div id="countdown">00:00:00</div>
     <script src="script.js"></script>
-
-<script>
-  const lang = navigator.language || navigator.userLanguage;
-  const infoIcon = document.querySelector('img[alt="info"]');
-  const forbiddenButton = document.getElementById("forbidden-button");
-  if (infoIcon && forbiddenButton) {
-    const isPolish = lang.startsWith("pl");
-    const tooltipText = isPolish
-      ? "Tryb trudny: tylko jedna próba na trafienie poprawnej ceny"
-      : "Hard mode: only one chance to guess the correct price";
-    infoIcon.title = tooltipText;
-    forbiddenButton.title = tooltipText;
-  }
-</script>
-
 </body>
 </html>
