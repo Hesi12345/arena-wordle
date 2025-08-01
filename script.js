@@ -44,6 +44,15 @@ function randomEmoji(list) {
 function updateTexts() {
     document.getElementById('guess-button').textContent = t("guess");
     document.getElementById('reset-button').textContent = t("playAgain");
+    document.getElementById('item-name').textContent = `${t("item")}: ${currentItem?.name || ""}`;
+    document.getElementById('attempts').textContent = `${t("attemptsLeft")} ${maxAttempts - attempts}`;
+    updateLangSwitch();
+}
+
+function updateLangSwitch() {
+    const langButton = document.getElementById('lang-switch');
+    langButton.textContent = lang.toUpperCase();
+    langButton.className = lang.toLowerCase();
 }
 
 function updateCountdown() {
@@ -113,7 +122,6 @@ document.getElementById('reset-button').addEventListener('click', () => location
 document.getElementById('lang-switch').addEventListener('click', () => {
     lang = lang === 'pl' ? 'en' : 'pl';
     updateTexts();
-    document.getElementById('item-name').textContent = `${t("item")}: ${currentItem.name}`;
 });
 
 loadItem();

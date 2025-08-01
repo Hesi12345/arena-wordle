@@ -53,9 +53,18 @@ button:hover {
     right: 10px;
     font-size: 0.9rem;
     cursor: pointer;
-    background: none;
-    color: #ccc;
+    padding: 0.3rem 0.6rem;
     border: none;
+    border-radius: 5px;
+    background: white;
+}
+
+#lang-switch.pl {
+    color: red;
+}
+
+#lang-switch.en {
+    color: black;
 }
 
 #countdown {
