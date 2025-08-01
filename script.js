@@ -49,7 +49,7 @@ function updateTexts() {
     document.getElementById('item-name').textContent = `${t("item")}: ${currentItem?.name || ""}`;
     document.getElementById('attempts-label').textContent = `${t("attemptsLeft")} ${maxAttempts - attempts}`;
     updateLangSwitch();
-    document.getElementById('forbidden-button').textContent = "Forbidden";
+    // Forbidden button label left static as "Forbidden mode"
 }
 
 function updateLangSwitch() {
