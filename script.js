@@ -21,7 +21,7 @@ const text = {
         tooLow: "Za mało!",
         attemptsLeft: "Pozostało prób:",
         nextIn: "Następny przedmiot za",
-        forbidden: "Zakazany"
+        forbidden: "Forbidden"
     },
     en: {
         item: "Item",
