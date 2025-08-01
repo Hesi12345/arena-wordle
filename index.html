@@ -8,14 +8,16 @@
 <body>
     <div class="container">
         <h1>Arena Wordle</h1>
-        <p id="item-name">Ładowanie przedmiotu...</p>
-        <img id="item-image" src="" alt="obraz przedmiotu" style="max-width: 100%; display: none; margin: 1rem 0;" />
-        <input type="number" id="guess-input" placeholder="Zgadnij wartość" />
+        <p id="item-name">Ładowanie...</p>
+        <img id="item-image" src="" alt="obraz przedmiotu" />
+        <input type="number" id="guess-input" placeholder="12345" />
         <button id="guess-button">Zgadnij</button>
         <p id="result"></p>
         <p id="attempts"></p>
         <button id="reset-button">Zagraj ponownie</button>
     </div>
+    <button id="lang-switch">PL/EN</button>
+    <div id="countdown">00:00:00</div>
     <script src="script.js"></script>
 </body>
 </html>
