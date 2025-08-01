@@ -1,72 +1,26 @@
-
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8">
     <title>Arena Wordle</title>
-    <style>
-        body {
-            background: #111;
-            color: white;
-            font-family: sans-serif;
-            text-align: center;
-            padding-top: 50px;
-        }
-        .tooltip {
-            position: relative;
-            display: inline-block;
-        }
-        .tooltip .tooltiptext {
-            visibility: hidden;
-            background-color: #333;
-            color: #fff;
-            text-align: center;
-            border-radius: 6px;
-            padding: 6px 8px;
-            position: absolute;
-            z-index: 1;
-            bottom: 125%; 
-            left: 50%;
-            transform: translateX(-50%);
-            opacity: 0;
-            transition: opacity 0.3s;
-            width: 200px;
-        }
-        .tooltip:hover .tooltiptext {
-            visibility: visible;
-            opacity: 1;
-        }
-        .forbidden-container {
-            margin-top: 20px;
-        }
-        .forbidden-button {
-            background-color: purple;
-            color: white;
-            border: none;
-            padding: 5px 10px;
-            border-radius: 6px;
-            cursor: pointer;
-        }
-        .info-icon {
-            width: 18px;
-            height: 18px;
-            margin-left: 6px;
-            vertical-align: middle;
-            cursor: pointer;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Arena Wordle</h1>
-    <div class="forbidden-container">
-        <span class="tooltip">
-            <button class="forbidden-button">Forbidden Mode</button>
-            <span class="tooltiptext">Tryb trudny: tylko jedna próba na odgadnięcie ceny</span>
-        </span>
-        <span class="tooltip">
-            <img src="assets/info.png" class="info-icon" alt="info" />
-            <span class="tooltiptext">Tryb trudny: tylko jedna próba na odgadnięcie ceny</span>
-        </span>
+    <div class="container">
+        <h1>Arena Wordle</h1>
+        <p id="item-name">Ładowanie...</p>
+        <img id="item-image" src="" alt="obraz przedmiotu" />
+        <input type="number" id="guess-input" placeholder="12345" />
+        <button id="guess-button">Zgadnij</button>
+        <p id="result"></p>
+        <p>
+            <span id="attempts-label"></span>
+            <button id="forbidden-button" title="Tryb trudny: tylko jedna próba na trafienie poprawnej ceny">Forbidden Mode</button>
+        </p>
+        <button id="reset-button">Zagraj ponownie</button>
     </div>
+    <button id="lang-switch">PL/EN</button>
+    <div id="countdown">00:00:00</div>
+    <script src="script.js"></script>
 </body>
 </html>
