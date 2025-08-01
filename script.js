@@ -49,7 +49,13 @@ function updateTexts() {
     document.getElementById('item-name').textContent = `${t("item")}: ${currentItem?.name || ""}`;
     document.getElementById('attempts-label').textContent = `${t("attemptsLeft")} ${maxAttempts - attempts}`;
     updateLangSwitch();
-    // Forbidden button label left static as "Forbidden mode"
+    
+    const forbiddenBtn = document.getElementById('forbidden-button');
+    forbiddenBtn.textContent = "Forbidden Mode";
+    forbiddenBtn.title = lang === 'pl'
+        ? "Tryb trudny: tylko jedna próba na trafienie poprawnej ceny"
+        : "Hard mode: one chance to guess the correct price";
+    
 }
 
 function updateLangSwitch() {
