@@ -126,3 +126,53 @@ document.getElementById('lang-switch').addEventListener('click', () => {
 
 loadItem();
 updateTexts();
+
+
+let isForbidden = false;
+
+document.getElementById('forbidden-button').addEventListener('click', () => {
+    isForbidden = true;
+    document.getElementById('forbidden-button').disabled = true;
+    maxAttempts = 1;
+    document.getElementById('attempts-label').textContent = `${t("attemptsLeft")} ${maxAttempts}`;
+});
+
+function flashEffect(type) {
+    const container = document.querySelector('.container');
+    if (type === 'win') {
+        container.classList.add('flash-win');
+        setTimeout(() => container.classList.remove('flash-win'), 800);
+    } else if (type === 'lose') {
+        container.classList.add('flash-lose');
+        setTimeout(() => container.classList.remove('flash-lose'), 800);
+    }
+}
+
+// nadpisanie evaluateGuess z animacją
+evaluateGuess = function() {
+    const guess = parseFloat(document.getElementById('guess-input').value);
+    if (isNaN(guess) || !currentItem) return;
+
+    const price = currentItem.price;
+    const margin = price * 0.05;
+
+    attempts++;
+
+    let result = '';
+    if (Math.abs(guess - price) <= margin) {
+        result = `${randomEmoji(emojisWin)} ${t("win")} ${price}`;
+        flashEffect('win');
+        endGame();
+    } else if (attempts >= maxAttempts) {
+        result = `${randomEmoji(emojisLose)} ${t("lose")} ${price}`;
+        flashEffect('lose');
+        endGame();
+    } else if (guess > price + margin) {
+        result = `${randomEmoji(emojisTooHigh)} ${t("tooHigh")}`;
+    } else {
+        result = `${randomEmoji(emojisTooLow)} ${t("tooLow")}`;
+    }
+
+    document.getElementById('result').textContent = result;
+    document.getElementById('attempts-label').textContent = `${t("attemptsLeft")} ${maxAttempts - attempts}`;
+}

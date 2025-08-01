@@ -74,3 +74,33 @@ button:hover {
     font-size: 0.9rem;
     color: #ccc;
 }
+
+
+@keyframes flashWin {
+    0% { background-color: #2ecc71; }
+    100% { background-color: transparent; }
+}
+
+@keyframes flashLose {
+    0% { background-color: #e74c3c; }
+    100% { background-color: transparent; }
+}
+
+.flash-win {
+    animation: flashWin 0.8s ease-out;
+}
+
+.flash-lose {
+    animation: flashLose 0.8s ease-out;
+}
+
+#forbidden-button {
+    padding: 0.4rem 0.6rem;
+    margin-left: 1rem;
+    font-size: 0.8rem;
+    background-color: #8e44ad;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
