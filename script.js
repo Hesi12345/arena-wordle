@@ -20,8 +20,7 @@ const text = {
         tooHigh: "Za dużo!",
         tooLow: "Za mało!",
         attemptsLeft: "Pozostało prób:",
-        nextIn: "Następny przedmiot za",
-        forbidden: "Zakazany"
+        nextIn: "Następny przedmiot za"
     },
     en: {
         item: "Item",
@@ -32,8 +31,7 @@ const text = {
         tooHigh: "Too high!",
         tooLow: "Too low!",
         attemptsLeft: "Attempts left:",
-        nextIn: "Next item in",
-        forbidden: "Forbidden"
+        nextIn: "Next item in"
     }
 };
 
@@ -92,13 +90,11 @@ async function loadItem() {
 
 function flashEffect(type) {
     const container = document.querySelector('.container');
-    if (type === 'win') {
-        container.classList.add('flash-win');
-        setTimeout(() => container.classList.remove('flash-win'), 800);
-    } else if (type === 'lose') {
-        container.classList.add('flash-lose');
-        setTimeout(() => container.classList.remove('flash-lose'), 800);
-    }
+    const className = type === 'win' ? 'flash-win' : 'flash-lose';
+    container.classList.remove('flash-win', 'flash-lose');
+    void container.offsetWidth; // reset
+    container.classList.add(className);
+    setTimeout(() => container.classList.remove(className), 800);
 }
 
 function evaluateGuess() {
@@ -115,16 +111,16 @@ function evaluateGuess() {
         result = `${randomEmoji(emojisWin)} ${t("win")} ${price}`;
         flashEffect('win');
         endGame();
-    } else if (attempts >= maxAttempts) {
-        result = `${randomEmoji(emojisLose)} ${t("lose")} ${price}`;
-        flashEffect('lose');
-        endGame();
-    } else if (guess > price + margin) {
-        flashEffect("lose");
-        result = `${randomEmoji(emojisTooHigh)} ${t("tooHigh")}`;
     } else {
-        flashEffect("lose");
-        result = `${randomEmoji(emojisTooLow)} ${t("tooLow")}`;
+        flashEffect('lose');
+        if (attempts >= maxAttempts) {
+            result = `${randomEmoji(emojisLose)} ${t("lose")} ${price}`;
+            endGame();
+        } else if (guess > price + margin) {
+            result = `${randomEmoji(emojisTooHigh)} ${t("tooHigh")}`;
+        } else {
+            result = `${randomEmoji(emojisTooLow)} ${t("tooLow")}`;
+        }
     }
 
     document.getElementById('result').textContent = result;
