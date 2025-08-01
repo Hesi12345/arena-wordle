@@ -129,7 +129,7 @@ function evaluateGuess() {
 
     let result = '';
     if (Math.abs(guess - price) <= margin) {
-        result = `${randomEmoji(emojisWin)} ${t("win”)} ${price}`;
+        result = `${randomEmoji(emojisWin)} ${t("win")} ${price}`;
         flashEffect('win');
         playWinSound();
         triggerConfetti();
@@ -137,12 +137,12 @@ function evaluateGuess() {
     } else {
         flashEffect('lose');
         if (attempts >= maxAttempts) {
-            result = `${randomEmoji(emojisLose)} ${t("lose”)} ${price}`;
+            result = `${randomEmoji(emojisLose)} ${t("lose")} ${price}`;
             endGame();
         } else if (guess > price + margin) {
-            result = `${randomEmoji(emojisTooHigh)} ${t("tooHigh”)}`;
+            result = `${randomEmoji(emojisTooHigh)} ${t("tooHigh")}`;
         } else {
-            result = `${randomEmoji(emojisTooLow)} ${t("tooLow”)}`;
+            result = `${randomEmoji(emojisTooLow)} ${t("tooLow")}`;
         }
     }
 
@@ -172,5 +172,22 @@ document.getElementById('forbidden-button').addEventListener('click', () => {
     updateTexts();
 });
 
-loadItem();
-updateTexts();
+window.onload = () => {
+    loadItem();
+    updateTexts();
+    document.getElementById('guess-button').addEventListener('click', evaluateGuess);
+    document.getElementById('reset-button').addEventListener('click', () => location.reload());
+    document.getElementById('lang-switch').addEventListener('click', () => {
+        lang = lang === 'pl' ? 'en' : 'pl';
+        updateTexts();
+    });
+    document.getElementById('forbidden-button').addEventListener('click', () => {
+        isForbidden = !isForbidden;
+        maxAttempts = isForbidden ? 1 : 3;
+        attempts = 0;
+        document.getElementById('guess-button').disabled = false;
+        document.getElementById('guess-input').disabled = false;
+        document.getElementById('result').textContent = '';
+        updateTexts();
+    });
+};
