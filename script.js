@@ -21,7 +21,7 @@ const text = {
         tooLow: "Za mało!",
         attemptsLeft: "Pozostało prób:",
         nextIn: "Następny przedmiot za",
-        forbidden: "Forbidden"
+        forbidden: "Zakazany"
     },
     en: {
         item: "Item",
@@ -51,7 +51,7 @@ function updateTexts() {
     document.getElementById('item-name').textContent = `${t("item")}: ${currentItem?.name || ""}`;
     document.getElementById('attempts-label').textContent = `${t("attemptsLeft")} ${maxAttempts - attempts}`;
     updateLangSwitch();
-    document.getElementById('forbidden-button').textContent = t("forbidden");
+    document.getElementById('forbidden-button').textContent = "Forbidden";
 }
 
 function updateLangSwitch() {
@@ -120,8 +120,10 @@ function evaluateGuess() {
         flashEffect('lose');
         endGame();
     } else if (guess > price + margin) {
+        flashEffect("lose");
         result = `${randomEmoji(emojisTooHigh)} ${t("tooHigh")}`;
     } else {
+        flashEffect("lose");
         result = `${randomEmoji(emojisTooLow)} ${t("tooLow")}`;
     }
 
