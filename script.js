@@ -1,6 +1,8 @@
+
 let currentItem = null;
 let attempts = 0;
-const maxAttempts = 3;
+let maxAttempts = 3;
+let isForbidden = false;
 let lang = navigator.language.startsWith('pl') ? 'pl' : 'en';
 
 const emojisWin = ['🎉', '🏆', '👏', '🔥', '✅'];
@@ -18,7 +20,8 @@ const text = {
         tooHigh: "Za dużo!",
         tooLow: "Za mało!",
         attemptsLeft: "Pozostało prób:",
-        nextIn: "Następny przedmiot za"
+        nextIn: "Następny przedmiot za",
+        forbidden: "Zakazany"
     },
     en: {
         item: "Item",
@@ -29,7 +32,8 @@ const text = {
         tooHigh: "Too high!",
         tooLow: "Too low!",
         attemptsLeft: "Attempts left:",
-        nextIn: "Next item in"
+        nextIn: "Next item in",
+        forbidden: "Forbidden"
     }
 };
 
@@ -45,8 +49,9 @@ function updateTexts() {
     document.getElementById('guess-button').textContent = t("guess");
     document.getElementById('reset-button').textContent = t("playAgain");
     document.getElementById('item-name').textContent = `${t("item")}: ${currentItem?.name || ""}`;
-    document.getElementById('attempts').textContent = `${t("attemptsLeft")} ${maxAttempts - attempts}`;
+    document.getElementById('attempts-label').textContent = `${t("attemptsLeft")} ${maxAttempts - attempts}`;
     updateLangSwitch();
+    document.getElementById('forbidden-button').textContent = t("forbidden");
 }
 
 function updateLangSwitch() {
@@ -82,60 +87,8 @@ async function loadItem() {
     const img = document.getElementById('item-image');
     img.src = currentItem.image;
     img.style.display = 'block';
-    document.getElementById('attempts').textContent = `${t("attemptsLeft")} ${maxAttempts - attempts}`;
+    document.getElementById('attempts-label').textContent = `${t("attemptsLeft")} ${maxAttempts - attempts}`;
 }
-
-function evaluateGuess() {
-    const guess = parseFloat(document.getElementById('guess-input').value);
-    if (isNaN(guess) || !currentItem) return;
-
-    const price = currentItem.price;
-    const margin = price * 0.05;
-
-    attempts++;
-
-    let result = '';
-    if (Math.abs(guess - price) <= margin) {
-        result = `${randomEmoji(emojisWin)} ${t("win")} ${price}`;
-        endGame();
-    } else if (attempts >= maxAttempts) {
-        result = `${randomEmoji(emojisLose)} ${t("lose")} ${price}`;
-        endGame();
-    } else if (guess > price + margin) {
-        result = `${randomEmoji(emojisTooHigh)} ${t("tooHigh")}`;
-    } else {
-        result = `${randomEmoji(emojisTooLow)} ${t("tooLow")}`;
-    }
-
-    document.getElementById('result').textContent = result;
-    document.getElementById('attempts').textContent = `${t("attemptsLeft")} ${maxAttempts - attempts}`;
-}
-
-function endGame() {
-    document.getElementById('guess-button').disabled = true;
-    document.getElementById('guess-input').disabled = true;
-}
-
-document.getElementById('guess-button').addEventListener('click', evaluateGuess);
-document.getElementById('reset-button').addEventListener('click', () => location.reload());
-
-document.getElementById('lang-switch').addEventListener('click', () => {
-    lang = lang === 'pl' ? 'en' : 'pl';
-    updateTexts();
-});
-
-loadItem();
-updateTexts();
-
-
-let isForbidden = false;
-
-document.getElementById('forbidden-button').addEventListener('click', () => {
-    isForbidden = true;
-    document.getElementById('forbidden-button').disabled = true;
-    maxAttempts = 1;
-    document.getElementById('attempts-label').textContent = `${t("attemptsLeft")} ${maxAttempts}`;
-});
 
 function flashEffect(type) {
     const container = document.querySelector('.container');
@@ -148,8 +101,7 @@ function flashEffect(type) {
     }
 }
 
-// nadpisanie evaluateGuess z animacją
-evaluateGuess = function() {
+function evaluateGuess() {
     const guess = parseFloat(document.getElementById('guess-input').value);
     if (isNaN(guess) || !currentItem) return;
 
@@ -176,3 +128,25 @@ evaluateGuess = function() {
     document.getElementById('result').textContent = result;
     document.getElementById('attempts-label').textContent = `${t("attemptsLeft")} ${maxAttempts - attempts}`;
 }
+
+function endGame() {
+    document.getElementById('guess-button').disabled = true;
+    document.getElementById('guess-input').disabled = true;
+    document.getElementById('forbidden-button').disabled = true;
+}
+
+document.getElementById('guess-button').addEventListener('click', evaluateGuess);
+document.getElementById('reset-button').addEventListener('click', () => location.reload());
+document.getElementById('lang-switch').addEventListener('click', () => {
+    lang = lang === 'pl' ? 'en' : 'pl';
+    updateTexts();
+});
+document.getElementById('forbidden-button').addEventListener('click', () => {
+    isForbidden = true;
+    maxAttempts = 1;
+    document.getElementById('forbidden-button').disabled = true;
+    document.getElementById('attempts-label').textContent = `${t("attemptsLeft")} ${maxAttempts}`;
+});
+
+loadItem();
+updateTexts();

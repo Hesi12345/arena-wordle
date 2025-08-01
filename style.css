@@ -104,3 +104,14 @@ button:hover {
     border-radius: 5px;
     cursor: pointer;
 }
+
+#forbidden-button {
+    padding: 0.4rem 0.6rem;
+    margin-left: 0.8rem;
+    font-size: 0.75rem;
+    background-color: #8e44ad;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
