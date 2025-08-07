@@ -52,7 +52,8 @@ function updateTexts() {
         ? "Tryb trudny: tylko jedna próba na trafienie poprawnej ceny"
         : "Hard mode: one chance to guess the correct price";
     const forbiddenBtn = document.getElementById('forbidden-button');
-    forbiddenBtn.textContent = "Forbidden Mode";
+    forbiddenBtn.textContent = `Forbidden Mode ${isForbidden ? 'ON' : 'OFF'}`;
+    forbiddenBtn.classList.toggle('active', isForbidden);
     forbiddenBtn.title = lang === 'pl'
         ? (isForbidden ? "Kliknij, aby dezaktywować tryb trudny" : "Kliknij, aby aktywować tryb trudny")
         : (isForbidden ? "Click to disable hard mode" : "Click to enable hard mode");
