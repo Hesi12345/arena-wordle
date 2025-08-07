@@ -48,14 +48,17 @@ function updateTexts() {
     document.getElementById('item-name').textContent = `${t("item")}: ${currentItem?.name || ""}`;
     updateAttemptsLabel();
     updateLangSwitch();
+    const forbiddenInfoText = lang === 'pl'
+        ? "Tryb trudny: tylko jedna próba na trafienie poprawnej ceny"
+        : "Hard mode: one chance to guess the correct price";
     const forbiddenBtn = document.getElementById('forbidden-button');
     forbiddenBtn.textContent = "Forbidden Mode";
     forbiddenBtn.title = lang === 'pl'
-        ? (isForbidden ? "Tryb trudny: tylko jedna próba na trafienie poprawnej ceny" : "Kliknij, aby aktywować tryb trudny")
-        : (isForbidden ? "Hard mode: one chance to guess the correct price" : "Click to enable hard mode");
+        ? (isForbidden ? "Kliknij, aby dezaktywować tryb trudny" : "Kliknij, aby aktywować tryb trudny")
+        : (isForbidden ? "Click to disable hard mode" : "Click to enable hard mode");
     const infoIcon = document.getElementById('info-icon');
     if (infoIcon) {
-        infoIcon.title = forbiddenBtn.title;
+        infoIcon.title = forbiddenInfoText;
     }
 }
 
